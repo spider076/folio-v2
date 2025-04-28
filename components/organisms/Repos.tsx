@@ -6,6 +6,7 @@ import posthog from "posthog-js";
 import { useEffect, useState } from "react";
 
 import { Repo } from "@/types";
+import ProjectCard from "../molecules/ProjectCard";
 
 const Repos: React.FC = () => {
   const [repos, setRepos] = useState<Repo[]>([]);
@@ -28,7 +29,75 @@ const Repos: React.FC = () => {
         </h2>
       </div>
 
-      <h1 className='text-gray-700 pb-10 text-[1.7rem] text-center'>Will be updated soon...</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <ProjectCard
+          title="Renthub"
+          description="RentHub is a product that is built on top of BTFS to make it easier for developers to use the platform. It provides a set of tools and services that simplify the process of storing and retrieving files on the BTFS network. RentHub 
+          is designed to be easy to use and accessible to developers of all skill levels.."
+          href="https://www.renthub.cloud/"
+          icon="renthub"
+          tags={[
+            "Front-end",
+            "BTFS",
+            "Next.js",
+            "React",
+            "TailwindCSS",
+            "Nestjs",
+          ]}
+        />
+        <ProjectCard
+          title="CodeHive"
+          description="Code Hive provides a platform where developers can showcase their coding skills, solve real-world problems, and earn rewards for their solutions. 
+          It helps developers enhance their skills and gain recognition in the tech community."
+          href="https://thecodehive.online/"
+          icon="codehive"
+          tags={[
+            "Hackathon",
+            "React",
+            "Node",
+            "Nestjs",
+            "Tron Nile",
+            "Tron Kit",
+            "Solidity",
+          ]}
+        />
+        <ProjectCard
+          title="EdoboMedical"
+          description="A Medical E-commerce Website"
+          href="https://edobomedical.vercel.app/"
+          icon="edobomedical"
+          tags={["Next.js", "React", "TailwindCSS", "Full-Stack"]}
+        />
+        <ProjectCard
+          title="Squad.ai"
+          description="AI Automation platform for bussinesses build using n8n automation tool and gemini"
+          href="https://huntai-bef61.web.app/"
+          icon="squadai"
+          tags={[
+            "Next.js",
+            "React",
+            "TailwindCSS",
+            "N8N",
+            "Gemini",
+            "Material-UI",
+          ]}
+        />
+        <ProjectCard
+          title="Opinex"
+          description="Opinex is an Options trading platforms where users can place bet on their opinions and win rewards in form of eth"
+          href="https://opinex.vercel.app/"
+          icon="opinex"
+          tags={["Tailwind", "Next.js", "Ethereum", "Ethers.js", "Solidity"]}
+        />
+
+        {/* <ProjectCard
+          title="Covid Rescue"
+          description="Get Real-time verified leads on Oxygen, Beds, Remdesivir and more with location and resource filtering"
+          href="https://covidrescue.co.in/"
+          icon="covidrescue"
+          tags={["Open Source", "Next.js", "Twitter"]}
+        /> */}
+      </div>
     </section>
   );
 };
