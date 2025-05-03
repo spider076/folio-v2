@@ -3,7 +3,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import "@/lib/notion.css";
 
-export const revalidate = 60; // Revalidate this page every 60 seconds
+export const revalidate = 60; 
 
 export default async function BlogsPage() {
   const blogs = await fetchPages();
@@ -21,13 +21,11 @@ export default async function BlogsPage() {
       <h1 className="text-[3rem] text-accent font-bold mb-8">Blogs</h1>
       <div className="space-y-1 px-4 mt-6">
         {blogs.map((blog: any) => {
-          // Remove console.log statements that can cause hydration issues
           const slug = blog.properties.slug?.rich_text[0]?.plain_text || "";
           const title = blog.properties.Title?.rich_text[0]?.plain_text || "No Title";
           const description =
             blog.properties.description?.rich_text[0]?.plain_text || "";
           
-          // Extract and format date - use consistent approach
           let formattedDate = "";
           const dateProperty = blog.properties.Date?.date?.start || 
                               blog.properties.PublishedDate?.date?.start || 
@@ -37,12 +35,10 @@ export default async function BlogsPage() {
             try {
               formattedDate = format(new Date(dateProperty), "MMMM d, yyyy");
             } catch (e) {
-              // Silent error handling for invalid dates
               formattedDate = "";
             }
           }
           
-          // Extract tags
           const tags = blog.properties.Tags?.multi_select || [];
 
           return (
