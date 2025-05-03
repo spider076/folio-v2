@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Cursor from "@/components/atoms/Cursor";
 import ResumeButton from "@/components/atoms/ResumeButton";
 import NavHost from "@/components/molecules/NavHost";
+import Footer from "@/components/molecules/Footer";
 
 export default function PageLayout({
   children,
@@ -63,8 +64,11 @@ export default function PageLayout({
             scale={scale}
             opacity={opacity}
           />
-          {children}
+          <section className="mt-36">
+            {children}
+          </section>
         </div>
+      <Footer />
       </body>
     </html>
   );

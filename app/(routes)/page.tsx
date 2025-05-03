@@ -11,7 +11,6 @@ export default function Home() {
       <About />
       <GithubCalender />
       <Repos />
-      <Footer />
       {/* <Timeline timeline={timelines} /> */}
     </div>
   );
