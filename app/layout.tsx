@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { PHProvider } from "@/providers/PHProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import "./globals.css";
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: "Saad",
@@ -12,10 +13,10 @@ export const metadata: Metadata = {
     description: "not the only website ever",
     type: "website",
     url: "https://saadabban.vercel.app",
-    images: "/azuki.png",
+    images: "/me.jpg",
   },
   twitter: {
-    images: "/azuki.png",
+    images: "/me.jpg",
     card: "summary",
   },
   themeColor: "#EED1C6",
@@ -33,6 +34,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
           </ThemeProvider>
+          <Toaster />
         </body>
       </html>
     </PHProvider>

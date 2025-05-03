@@ -29,7 +29,7 @@ const HeroImage: React.FC = () => {
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
         className={cn(
-          "img rounded-[48px] w-wclamp344 h-hclamp344 xl:w-[425px] xl:h-[400px] z-10 md:block self-start bg-elevation_one bg-cover bg-center bg-no-repeat bg-[url('/azuki.png')] hidden"
+          "img rounded-[48px] w-wclamp344 h-hclamp344 xl:w-[325px] xl:h-[350px] z-10 md:block self-start bg-elevation_one bg-cover bg-center bg-no-repeat bg-[url('/me.jpg')] hidden"
         )}
         style={{
           transform: `

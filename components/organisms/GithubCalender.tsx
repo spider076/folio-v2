@@ -5,7 +5,7 @@ import GitHubCalendar from 'react-github-calendar';
 const GithubCalender = () => {
   return (
     <main className='wrapper'>
-      <div className="title flex justify-start mt-0 md:justify-center">
+      <div className="title flex justify-start mt-0 md:justify-start">
         <h2 className="inline-block text-center mb-4">
           <span className="text-accent">My Github</span>:
           <Link target='_blank' href='https://github.com/spider076'>
@@ -13,7 +13,7 @@ const GithubCalender = () => {
           </Link> 
         </h2>
         </div>
-        <div className='px-10 py-4'>
+        <div className='px-2 py-4'>
             <GitHubCalendar username="spider076" />
         </div>
     </main>

@@ -1,28 +1,120 @@
-import { fetchPages } from '@/lib/notionClient'
-import Link from 'next/link';
-import React from 'react'
+import { fetchPages } from "@/lib/notionClient";
+import Link from "next/link";
+import { format } from "date-fns";
+import "@/lib/notion.css";
 
-const BlogsPage = async () => {
+export default async function BlogsPage() {
   const blogs = await fetchPages();
-
-  const blogTitle = blogs[0]?.properties.Title.rich_text[0].plain_text || 'No Title';
-
-  console.log('blgos : ', );
+  if (!blogs || blogs.length === 0) {
+    return (
+      <div className="max-w-2xl mx-auto mt-16 px-4 text-center text-gray-600">
+        No blogs found
+      </div>
+    );
+  }
 
   return (
-    <main className='mt-40 wrapper'>
-      <h1>Blogs</h1>
-      {blogs.map((blog: any) => (
-        <div key={blog.id} className='p-4 border-b border-gray-300'>
-          <Link href={`/blog/${blog.id.split('-').join('')}`} className='text-2xl font-bold'>{blogTitle}</Link>
-          <p className='text-gray-600'>{blog?.description}</p>
-          <a href={blog.url} className='text-blue-500 hover:underline'>
-            Read more
-          </a>
-        </div>
-      ))}
-    </main>
-  )
-}
+    <main className="wrapper mt-16">
+      <h1 className="text-[3rem] text-accent font-bold mb-8">Blogs</h1>
+      <div className="space-y-1 px-4 mt-6 ">
+        {blogs.map((blog: any) => {
+          console.log("blug : ", blog);
+          const slug = blog.properties.slug?.rich_text[0]?.plain_text || "";
+          const title = blog.properties.Title?.rich_text[0]?.plain_text || "No Title";
+          const description =
+            blog.properties.description?.rich_text[0]?.plain_text || "";
+          // Extract and format date
+          let formattedDate = "";
+          if (blog.properties.Date?.date?.start) {
+            formattedDate = format(
+              new Date(blog.properties.Date.date.start),
+              "MMMM d, yyyy"
+            );
+          } else if (blog.properties.PublishedDate?.date?.start) {
+            formattedDate = format(
+              new Date(blog.properties.PublishedDate.date.start),
+              "MMMM d, yyyy"
+            );
+          } else if (blog.created_time) {
+            formattedDate = format(
+              new Date(blog.created_time),
+              "MMMM d, yyyy"
+            );
+          }
+          // Extract tags
+          const tags = blog.properties.Tags?.multi_select || [];
 
-export default BlogsPage
+          return (
+            <div
+              key={blog.id}
+              className="dark:bg-elevation_four border-b border-accent p-6 last:border-b-0 cursor-pointer transition-opacity duration-300"
+            >
+              <section className='flex items-center justify-between'>
+              <Link
+                href={`/blog/${slug}`}
+                className="text-3xl dark:text-text_primary font-semibold hover:text-white dark:hover:text-text_secondary transition-colors"
+              >
+                {title}
+              </Link>
+              {formattedDate && (
+                <div className="flex items-center mt-2 text-sm text-gray-600">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="mr-2"
+                  >
+                    <rect
+                      x="3"
+                      y="4"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  <span>{formattedDate}</span>
+                </div>
+              )}
+                </section>
+              
+
+              {tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {tags.map((tag: any) => (
+                    <span
+                      key={tag.id}
+                      className="inline-block px-3 py-1 text-xs font-medium text-gray-700 rounded-full"
+                      style={{
+                        backgroundColor:
+                          tag.color === "default"
+                            ? "#e0e0e0"
+                            : `var(--notion-${tag.color})`,
+                      }}
+                    >
+                      {tag.name}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {description && (
+                <p className="mt-6 text-text_secondary line-clamp-2">
+                  {description}
+                </p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </main>
+  );
+}

@@ -1,8 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import posthog from "posthog-js";
 import { useEffect, useState } from "react";
 
 import { Repo } from "@/types";
@@ -23,7 +20,7 @@ const Repos: React.FC = () => {
 
   return (
     <section className="wrapper pb-5 md:pb-0" id="work">
-      <div className="title flex justify-start mt-0 md:justify-center">
+      <div className="title flex justify-start mt-12 md:justify-start">
         <h2 className="inline-block mb-4">
           <span className="text-accent">code</span>:work
         </h2>
