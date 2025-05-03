@@ -3,10 +3,15 @@ import useSWR from "swr";
 // import format from "comma-number";
 
 // import fetcher from "@/lib/fetcher";
+interface BlogPostProps {
+  title: string;
+  summary: string;
+  slug: string;
+}
 
 import { twMerge } from "tailwind-merge";
 
-const BlogPost = ({ title, summary, slug }: {
+const BlogPost: React.FC<BlogPostProps> = ({ title, summary, slug }: {
     title: string;
     summary: string;
     slug: string;
