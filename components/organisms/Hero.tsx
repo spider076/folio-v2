@@ -14,9 +14,10 @@ const Hero: React.FC = () => {
           Saad
         </h1>
         <ThemeToggle />
-        <h4 className="mt-4 text-[18px] md:text-[19px]">
-          MERN STACK DEV | FREELANCER | CURIOUS 
-          <br className="hidden md:block" /> Transforming Ideas into Reality.
+        <h4 className="mt-4 text-[18px] md:text-[19px] pr-4">
+          MERN STACK Dev | Upwork Freelancer | Web3 Dev  
+          <br className="hidden md:block" /> <span className='dark:text-elevation_three'>
+          Transforming Ideas into Reality.</span>
         </h4>
         <div className="mt-4 mb-[1.7rem]">
           <Socials />

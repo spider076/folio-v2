@@ -17,7 +17,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ title, summary, slug }) => {
       href={`/blog/${slug}`}
       className="w-full mb-2"
     >
-      <div className="w-full mb-1 p-6 rounded-md dark:bg-elevation_two">
+      <div className="w-full mb-1 p-6 rounded-md bg-elevation_two dark:bg-elevation_two">
         <div className="flex flex-col justify-between md:flex-row">
           <h4 className="w-full mb-2 text-lg font-medium text-gray-900 md:text-xl dark:text-gray-100">
             {title}

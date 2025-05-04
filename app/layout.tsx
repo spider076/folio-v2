@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
+import ToasterContainer from "@/lib/Toaster";
 import { PHProvider } from "@/providers/PHProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import "./globals.css";
-import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: "Saad",
@@ -31,10 +31,10 @@ export default function RootLayout({
     <PHProvider>
       <html lang="en" suppressHydrationWarning>
         <body>
+         <ToasterContainer />
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
           </ThemeProvider>
-          <Toaster />
         </body>
       </html>
     </PHProvider>
