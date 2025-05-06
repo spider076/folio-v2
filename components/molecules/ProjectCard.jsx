@@ -13,7 +13,6 @@ export default function ProjectCard({
   githubUrl,
   tags,
 }) {
-  console.log("icon", icon);
   let mouseX = useMotionValue(0);
   let mouseY = useMotionValue(0);
 
@@ -31,7 +30,9 @@ export default function ProjectCard({
       rel="noopener noreferrer"
       onMouseMove={onMouseMove}
     >
-      {typeof window !== "undefined" && <HoverPattern mouseX={mouseX} mouseY={mouseY} />}
+      {typeof window !== "undefined" && (
+        <HoverPattern mouseX={mouseX} mouseY={mouseY} />
+      )}
 
       <div className="relative h-full">
         <span className="absolute w-[40%] -bottom-px right-px h-px bg-gradient-to-r from-accent via-accent to-blue-500/0 dark:from-blue-400/0 dark:via-blue-400/40 dark:to-blue-400/0"></span>

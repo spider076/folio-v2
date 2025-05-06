@@ -6,10 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 class DiscordUser {
-  constructor(
-    public username: string,
-    public id: string
-  ) {}
+  constructor(public username: string, public id: string) {}
 }
 
 export let user = new DiscordUser("spider076", "719500343477534722");

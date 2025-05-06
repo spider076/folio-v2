@@ -3,11 +3,11 @@ import Link from "next/link";
 import { format } from "date-fns";
 import "@/lib/notion.css";
 
-export const revalidate = 60; 
+export const revalidate = 60;
 
 export default async function BlogsPage() {
   const blogs = await fetchPages();
-  
+
   if (!blogs || blogs.length === 0) {
     return (
       <div className="max-w-2xl mx-auto mt-16 px-4 text-center text-gray-600">
@@ -22,15 +22,17 @@ export default async function BlogsPage() {
       <div className="space-y-1 px-4 mt-6">
         {blogs.map((blog: any) => {
           const slug = blog.properties.slug?.rich_text[0]?.plain_text || "";
-          const title = blog.properties.Title?.rich_text[0]?.plain_text || "No Title";
+          const title =
+            blog.properties.Title?.rich_text[0]?.plain_text || "No Title";
           const description =
             blog.properties.description?.rich_text[0]?.plain_text || "";
-          
+
           let formattedDate = "";
-          const dateProperty = blog.properties.Date?.date?.start || 
-                              blog.properties.PublishedDate?.date?.start || 
-                              blog.created_time;
-          
+          const dateProperty =
+            blog.properties.Date?.date?.start ||
+            blog.properties.PublishedDate?.date?.start ||
+            blog.created_time;
+
           if (dateProperty) {
             try {
               formattedDate = format(new Date(dateProperty), "MMMM d, yyyy");
@@ -38,7 +40,7 @@ export default async function BlogsPage() {
               formattedDate = "";
             }
           }
-          
+
           const tags = blog.properties.Tags?.multi_select || [];
 
           return (
@@ -46,7 +48,7 @@ export default async function BlogsPage() {
               key={blog.id}
               className="dark:bg-elevation_four border-b border-accent p-6 last:border-b-0 cursor-pointer transition-opacity duration-300"
             >
-              <section className='flex items-center justify-between flex-wrap'>
+              <section className="flex items-center justify-between flex-wrap">
                 <Link
                   href={`/blog/${slug}`}
                   className="text-3xl dark:text-text_primary font-semibold hover:text-white dark:hover:text-text_secondary transition-colors"

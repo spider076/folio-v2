@@ -4,12 +4,15 @@ import GithubCalender from "@/components/organisms/GithubCalender";
 import Hero from "@/components/organisms/Hero";
 import RecentBlogs from "@/components/organisms/RecentBlogs";
 import Repos from "@/components/organisms/Projects";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
     <div className="">
       <Hero />
-      <RecentBlogs />
+      <Suspense fallback={<div>Loading blogs...</div>}>
+        <RecentBlogs />
+      </Suspense>
       {/* <About /> */}
       <GithubCalender />
       <Repos />

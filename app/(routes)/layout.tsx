@@ -48,28 +48,24 @@ export default function PageLayout({
   }, []);
 
   return (
-    <html lang="en">
-      <body className="font-spacegrotesk relative">
-        <div
-          onMouseMove={onMouseMove}
-          onMouseDown={() => setScale(1.25)}
-          onMouseUp={() => setScale(1)}
-        >
-          <ResumeButton />
-          <audio ref={audioRef!} src="/sounds/click.mp3" />
-          <NavHost />
-          <Cursor
-            mouseX={mouseX}
-            mouseY={mouseY}
-            scale={scale}
-            opacity={opacity}
-          />
-          <section className="mt-36">
-            {children}
-          </section>
-        </div>
+    <main className="font-spacegrotesk relative">
+      <div
+        onMouseMove={onMouseMove}
+        onMouseDown={() => setScale(1.25)}
+        onMouseUp={() => setScale(1)}
+      >
+        <ResumeButton />
+        <audio ref={audioRef!} src="/sounds/click.mp3" />
+        <NavHost />
+        <Cursor
+          mouseX={mouseX}
+          mouseY={mouseY}
+          scale={scale}
+          opacity={opacity}
+        />
+        <section className="mt-36">{children}</section>
+      </div>
       <Footer />
-      </body>
-    </html>
+    </main>
   );
 }

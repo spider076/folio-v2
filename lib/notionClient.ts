@@ -1,8 +1,11 @@
 "server-only";
 
 import { Client } from "@notionhq/client";
-import { unstable_cache } from 'next/cache';
-import { BlockObjectResponse, PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { unstable_cache } from "next/cache";
+import {
+  BlockObjectResponse,
+  PageObjectResponse,
+} from "@notionhq/client/build/src/api-endpoints";
 
 export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -10,40 +13,34 @@ export const notion = new Client({
 
 // Use Next.js unstable_cache with a short revalidation period
 export const fetchPages = async () => {
-  return unstable_cache(
-    async () => {
-      try {
-        if (!process.env.NOTION_BLOGS_DATABASE_ID) {
-          throw new Error("NOTION_BLOGS_DATABASE_ID is not defined");
-        }
-        if (!process.env.NOTION_TOKEN) {
-          throw new Error("NOTION_TOKEN is not defined");
-        }
+  try {
+    if (!process.env.NOTION_BLOGS_DATABASE_ID) {
+      throw new Error("NOTION_BLOGS_DATABASE_ID is not defined");
+    }
+    if (!process.env.NOTION_TOKEN) {
+      throw new Error("NOTION_TOKEN is not defined");
+    }
 
-        const response = await notion.databases.query({
-          database_id: process.env.NOTION_BLOGS_DATABASE_ID,
-          filter: {
-            property: "Status",
-            status: {
-              equals: "Live",
-            },
-          },
-          sorts: [
-            {
-              property: "Date",
-              direction: "descending",
-            }
-          ],
-        });
-        return response.results as PageObjectResponse[] || [];
-      } catch (error) {
-        console.error("Error in fetchPages:", error);
-        return [];
-      }
-    },
-    ["notion-blogs"],
-    { revalidate: 60 } // Revalidate cache every 60 seconds
-  )();
+    const response = await notion.databases.query({
+      database_id: process.env.NOTION_BLOGS_DATABASE_ID,
+      filter: {
+        property: "Status",
+        status: {
+          equals: "Live",
+        },
+      },
+      sorts: [
+        {
+          property: "Date",
+          direction: "descending",
+        },
+      ],
+    });
+    return response.results as PageObjectResponse[];
+  } catch (error) {
+    console.error("Error in fetchPages:", error);
+    return [];
+  }
 };
 
 export const fetchBodySlug = async (slug: string) => {
@@ -66,7 +63,7 @@ export const fetchBodySlug = async (slug: string) => {
       }
     },
     [`notion-blog-${slug}`],
-    { revalidate: 60 } 
+    { revalidate: 60 }
   )();
 };
 
@@ -78,7 +75,7 @@ export const fetchPageBlocks = async (id: string) => {
           block_id: id,
           page_size: 100,
         });
-        return response.results as BlockObjectResponse[] || [];
+        return (response.results as BlockObjectResponse[]) || [];
       } catch (error) {
         console.error("Error in fetchPageBlocks:", error);
         return [];
