@@ -3,7 +3,7 @@ import About from "@/components/organisms/About";
 import GithubCalender from "@/components/organisms/GithubCalender";
 import Hero from "@/components/organisms/Hero";
 import RecentBlogs from "@/components/organisms/RecentBlogs";
-import Repos from "@/components/organisms/Repos";
+import Repos from "@/components/organisms/Projects";
 
 export default function Home() {
   return (

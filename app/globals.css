@@ -170,18 +170,19 @@ body.stop-transitions * {
     --font-one: "Space_Grotesk", sans-serif;
     --font-two: "JetBrains_Mono", monospace;
     --bezier-one: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --text-primary: #343d46;
-    --text-secondary: #65737e;
-    --accent: #0086d3;
-    --accent-opacity: #6695bb2a;
-    --bg-color: #f5f6f7;
-    --elevation-one: #eaecee;
-    --elevation-two: #eaecee75;
-    --elevation-three: #dde0e440;
-    --elevation-four: #d9dbdd;
-    --elevation-five: #e2e5e7ce;
-    --elevation-six: #e6e8ea9e;
+    --text-primary: #3f3d56;
+    --text-secondary: #797a9e;
+    --accent: #a18aff;
+    --accent-opacity: #a18aff20;
+    --bg-color: #f0f1fa;
+    --elevation-one: #e4e5f0;
+    --elevation-two: #d7d8e875;
+    --elevation-three: #cbcce040;
+    --elevation-four: #c1c2d840;
+    --elevation-five: #dddeeece;
+    --elevation-six: #eaeaf89e;
   }
+  
   .dark {
     --font-one: "Space_Grotesk", sans-serif;
     --font-two: "JetBrains_Mono", monospace;
@@ -189,7 +190,7 @@ body.stop-transitions * {
     --text-primary: #f5f6f7;
     --text-secondary: #acb5bd;
     --accent: #0086d3;
-    --accent-opacity: #6695bb2a;
+    --accent-opacity: #000c182a;
     --bg-color: #22272e;
     --elevation-one: #2d333b;
     --elevation-two: #2d333b75;
