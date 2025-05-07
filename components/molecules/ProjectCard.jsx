@@ -4,6 +4,7 @@ import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import posthog from "posthog-js";
 
 export default function ProjectCard({
   title,
@@ -25,6 +26,11 @@ export default function ProjectCard({
     <Link
       className="group mb-4 hover:shadow-lg rounded-xl  transition duration-200 relative border border-slate-200 dark:border-slate-700 w-full"
       href={href}
+      onClick={() => {
+        posthog.capture(`Project (${title}) link clicked`, {
+          Clicked: true,
+        });
+      }}
       aria-label={title}
       target="_blank"
       rel="noopener noreferrer"

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import posthog from "posthog-js";
 import React from "react";
 
 interface BlogPostProps {
@@ -13,7 +14,15 @@ const BlogPost: React.FC<BlogPostProps> = ({ title, summary, slug }) => {
   if (!slug) return null;
 
   return (
-    <Link href={`/blog/${slug}`} className="w-full mb-2">
+    <Link
+      href={`/blog/${slug}`}
+      onClick={() => {
+        posthog.capture(`Blog (${slug}) link clicked`, {
+          Clicked: true,
+        });
+      }}
+      className="w-full mb-2"
+    >
       <div className="w-full mb-1 p-6 rounded-md bg-elevation_two dark:bg-elevation_two">
         <div className="flex flex-col justify-between md:flex-row">
           <h4 className="w-full mb-2 text-lg font-medium text-gray-900 md:text-xl dark:text-gray-100">

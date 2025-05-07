@@ -2,6 +2,7 @@ import { fetchPages } from "@/lib/notionClient";
 import Link from "next/link";
 import { format } from "date-fns";
 import "@/lib/notion.css";
+import posthog from "posthog-js";
 
 export const revalidate = 60;
 
@@ -51,6 +52,11 @@ export default async function BlogsPage() {
               <section className="flex items-center justify-between flex-wrap">
                 <Link
                   href={`/blog/${slug}`}
+                  onClick={() => {
+                    posthog.capture(`Blog (${slug}) link clicked`, {
+                      Clicked: true,
+                    });
+                  }}
                   className="text-3xl dark:text-text_primary font-semibold hover:text-white dark:hover:text-text_secondary transition-colors"
                 >
                   {title}
