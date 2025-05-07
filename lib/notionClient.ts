@@ -36,6 +36,9 @@ export const fetchPages = async () => {
         },
       ],
     });
+
+    console.log("Fetched pages fron notion.ts :", response.results);
+
     return response.results as PageObjectResponse[];
   } catch (error) {
     console.error("Error in fetchPages:", error);

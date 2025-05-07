@@ -9,8 +9,13 @@ export const useRecentBlogs = () => {
     const fetchRecentBlogs = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch("/api/blogs");
+        const response = await fetch("/api/blogs", {
+          cache: "no-store",
+          next: { revalidate: 0 },
+        });
         const blogs = await response.json();
+
+        console.log("blogs from the recentBlogs : ", blogs);
 
         if (!blogs || blogs.length === 0) {
           toast.error("No blogs found");

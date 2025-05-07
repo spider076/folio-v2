@@ -14,11 +14,14 @@ const Hero: React.FC = () => {
           Saad
         </h1>
         <ThemeToggle />
+        <span className="text-[14px] ml-2 mt-4 md:text-[16px] bg-gradient-to-r from-yellow-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+          Exploring Learning and Building
+        </span>
         <h4 className="mt-4 text-[18px] md:text-[19px] pr-4">
-          MERN STACK Dev | Upwork Freelancer | Web3 Dev  
-          <br className="hidden md:block" /> <span className='dark:text-elevation_three'>
-          Transforming Ideas into Reality.</span>
+          MERN STACK Dev | Upwork Freelancer | Web3 Dev
+          <br className="hidden md:block" />
         </h4>
+
         <div className="mt-4 mb-[1.7rem]">
           <Socials />
         </div>
