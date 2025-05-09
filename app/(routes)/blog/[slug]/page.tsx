@@ -12,19 +12,8 @@ interface BlogPostProps {
   };
 }
 
-export async function generateStaticParams() {
-  const pages = await fetchPages();
-  if (!pages || pages.length === 0) {
-    console.warn("No pages found for static generation");
-    return [];
-  }
+export const dynamic = "force-dynamic";
 
-  return pages.map((page: any) => ({
-    slug: page.properties.slug?.rich_text[0]?.plain_text || "",
-  }));
-}
-
-// Helper function to render rich text with inline annotations
 function renderRichText(richText: any[]) {
   return richText.map((rt: any, index: number) => {
     let text = rt.plain_text;
@@ -39,13 +28,11 @@ function renderRichText(richText: any[]) {
   });
 }
 
-// Recursive function to render blocks and their children
 async function renderBlock(block: any, index: number, depth: number = 0) {
   const blockType = block.type;
-  const blockData = block[blockType] as any || {};
+  const blockData = (block[blockType] as any) || {};
   const content: any[] = [];
 
-  // Handle blocks with children
   let children: any[] = [];
   if (block.has_children) {
     const childBlocks = await fetchPageBlocks(block.id);
@@ -61,8 +48,12 @@ async function renderBlock(block: any, index: number, depth: number = 0) {
   let listItems: any[] = [];
   let currentListType: string | null = null;
 
-  if (blockType === "bulleted_list_item" || blockType === "numbered_list_item") {
-    const text = blockData.rich_text?.map((rt: any) => rt.plain_text).join("") || "";
+  if (
+    blockType === "bulleted_list_item" ||
+    blockType === "numbered_list_item"
+  ) {
+    const text =
+      blockData.rich_text?.map((rt: any) => rt.plain_text).join("") || "";
     const listType = blockType === "bulleted_list_item" ? "ul" : "ol";
 
     listItems.push(
@@ -78,7 +69,11 @@ async function renderBlock(block: any, index: number, depth: number = 0) {
   }
 
   // Handle other block types
-  if (blockType === "paragraph" && blockData.rich_text && blockData.rich_text.length > 0) {
+  if (
+    blockType === "paragraph" &&
+    blockData.rich_text &&
+    blockData.rich_text.length > 0
+  ) {
     content.push(
       <p key={`paragraph-${index}`} className="notion-text">
         {renderRichText(blockData.rich_text)}
@@ -95,9 +90,15 @@ async function renderBlock(block: any, index: number, depth: number = 0) {
           height={100}
           src={blockData.file.url}
           alt={
-            blockData.caption?.map((c: any) => c.plain_text).join("") || "Notion image"
+            blockData.caption?.map((c: any) => c.plain_text).join("") ||
+            "Notion image"
           }
-          style={{ maxWidth: "100%", height: "auto", margin: "16px 0", width: "auto" }}
+          style={{
+            maxWidth: "100%",
+            height: "auto",
+            margin: "16px 0",
+            width: "auto",
+          }}
           unoptimized
         />
         {children.length > 0 && (
@@ -110,9 +111,17 @@ async function renderBlock(block: any, index: number, depth: number = 0) {
     blockData.rich_text
   ) {
     const text = blockData.rich_text.map((rt: any) => rt.plain_text).join("");
-    const HeadingTag = blockType === "heading_1" ? "h1" : blockType === "heading_2" ? "h2" : "h3";
+    const HeadingTag =
+      blockType === "heading_1"
+        ? "h1"
+        : blockType === "heading_2"
+        ? "h2"
+        : "h3";
     content.push(
-      <HeadingTag key={`heading-${index}`} className={`notion-${blockType.replace("_", "-")}`}>
+      <HeadingTag
+        key={`heading-${index}`}
+        className={`notion-${blockType.replace("_", "-")}`}
+      >
         {text}
         {children.length > 0 && (
           <div className="notion-nested-content">{children}</div>
@@ -148,17 +157,20 @@ async function renderBlock(block: any, index: number, depth: number = 0) {
       const cells = row.table_row.cells;
       return (
         <tr key={`table-row-${rowIndex}`}>
-          {cells.map((cell: any[], cellIndex: number) => (
+          {cells.map((cell: any[], cellIndex: number) =>
             rowIndex === 0 ? (
               <th key={`table-header-${cellIndex}`} className="notion-table-th">
                 {cell.map((c: any) => c.plain_text).join("")}
               </th>
             ) : (
-              <td key={`table-cell-${rowIndex}-${cellIndex}`} className="notion-table-td">
+              <td
+                key={`table-cell-${rowIndex}-${cellIndex}`}
+                className="notion-table-td"
+              >
                 {cell.map((c: any) => c.plain_text).join("")}
               </td>
             )
-          ))}
+          )}
         </tr>
       );
     });
@@ -188,8 +200,15 @@ async function renderBlock(block: any, index: number, depth: number = 0) {
   return content;
 }
 
+// Key change 3: Add revalidation configuration
+export const revalidate = 0; // This sets revalidation to occur on every request
+
 export default async function BlogPage({ params }: BlogPostProps) {
   const { slug } = params;
+
+  // Key change 4: Add cache busting parameter to API calls
+  // If your fetchBodySlug and fetchPageBlocks functions are using fetch internally,
+  // you might want to modify those to include cache-busting parameters
 
   // Fetch the Notion page by slug
   const page = (await fetchBodySlug(slug)) as any;
@@ -268,7 +287,9 @@ export default async function BlogPage({ params }: BlogPostProps) {
                   className="blog-tag"
                   style={{
                     backgroundColor:
-                      tag.color === "default" ? "#e0e0e0" : `var(--notion-${tag.color})`,
+                      tag.color === "default"
+                        ? "#e0e0e0"
+                        : `var(--notion-${tag.color})`,
                   }}
                 >
                   {tag.name}

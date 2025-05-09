@@ -28,7 +28,7 @@ const RichPresence: React.FC = () => {
   const [musicDuration, setMusicDuration] = useState("");
   const [customStatus, setCustomStatus] = useState("");
   const { status: data } = useStatus();
-  
+
   useEffect(() => setIsMounted(true), []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
