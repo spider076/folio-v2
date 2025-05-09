@@ -15,8 +15,6 @@ export const useRecentBlogs = () => {
         });
         const blogs = await response.json();
 
-        console.log("blogs from the recentBlogs : ", blogs);
-
         if (!blogs || blogs.length === 0) {
           toast.error("No blogs found");
           return;
